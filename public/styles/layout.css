@@ -1,0 +1,48 @@
+body {
+    display: grid;
+    grid-template-rows: 10% 80% 10%;
+    margin: 0%;
+}
+
+header {
+    display: grid;
+    grid-template-rows: 60% 40%;
+    order: 1;
+    height: 100%;
+    margin-bottom: 70%;
+}
+
+div {
+    border: solid black 1px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 60%;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 2%;
+}
+
+img {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 30%;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+h2 {
+    font-size: 150%;
+    text-align: center;
+}
+
+h3 {
+    font-size: 100%;
+    text-align: center;
+}
+
+p {
+    font-size: 50%;
+    margin-top: 5%;
+    text-align: center;
+}
