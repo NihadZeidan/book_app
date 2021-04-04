@@ -1,46 +1,87 @@
+* {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 110%;
+}
+
 body {
-    background-color: grey;
     display: grid;
-    grid-template-rows: 15% 40% 35% 10%;
+    grid-template-rows: 10% 80% 10%;
 }
 
 header {
     display: grid;
     grid-template-rows: 60% 40%;
-    text-align: center;
+    order: 1;
+    height: 100%;
+    margin-bottom: 70%;
 }
 
 header h1 {
-    background-color: black;
-    color: white;
-    height: 100%;
+    margin: 0%;
+order: 1;
+height: 100%;
+padding: 1% ;
+background-color: black;
+color: white;
+text-align: left;
+
 }
 
-h2 {
+header h2 {
+    order: 2;
     height: 100%;
+    padding: 1% ;
+    background-color: rgb(92, 92, 92);
+    color: white;
+    text-align: center;
+    margin: 0%;
 }
 
 main {
-    display: grid;
-    grid-template-columns: 80%;
+    order: 2;
+   background-color: grey;
+    height: 100%;
+}
+footer {
+    order: 3;
+    background-color: black;
+    height: 100%;
 }
 
-form {
+form fieldset {
+    border:none ;
+    width: 90%;
+    margin: auto;
+    height: 100%;
     display: grid;
-    grid-template-columns: 80%;
+    grid-template-rows: 25%, 25%, 25%, 25%;
 }
 
-fieldset {
-    display: grid;
-    grid-template-rows: 25% 25% 25% 25%;
+form fieldset #userInput {
+    padding: 1%;
+    width: 95%;
+    height: 100%;
+    background-color: white;
     color: black;
-    background-color: rgb(187, 187, 187);
-    text-align: left;
 }
 
-#userInput {
-    text-align: center;
+form fieldset label {
+    padding: 1%;
+    margin: auto;
+    width: 95%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.774);
     color: black;
-    background-color: rgb(255, 255, 255);
-    padding: 2em;
+}
+form fieldset input {
+    padding: 1%;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.774);
+}
+form fieldset button {
+    padding: 2%;
+    margin: auto;
+    width: 97%;
+    color: white;
+    background-color: black;
 }
