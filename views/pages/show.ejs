@@ -11,13 +11,15 @@
 
 <body>
     <header>
-
+        <h1>Best Books!</h1>
+        <h2>Search by title or author !</h2>
     </header>
+
 
     <main>
 
-        <div>
-            <% UserBooks.forEach(book => {%>
+        <% UserBooks.forEach(book => {%>
+            <div>
 
                 <img src="<%= book.image_url %>" />
 
@@ -35,12 +37,14 @@
                 </p>
 
 
-                <% }) %>
-        </div>
+            </div>
+            <% }) %>
 
     </main>
-    <footer>
 
+
+    <footer id="showFooter">
+        gggg
     </footer>
 
 </body>
