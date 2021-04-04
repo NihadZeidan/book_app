@@ -1,25 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Show Books</title>
+    <link rel="stylesheet" href="../app.css" type="text/css">
 </head>
+
 <body>
-    <form action="/searches" method="post">
-        <input type="text" name="search" placeholder="Enter a title or author" required>
-        <fieldset>
-          <label for="title">
-            <span>Title</span>
-            <input type="radio" name="searchBy" value="title" required>
-          </label>
-        </fieldset>
-        <fieldset>
-          <label for="author">
-            <span>Author</span>
-            <input type="radio" name="searchBy" value="author" required>
-          </label>
-        </fieldset>
-        <button type="submit">Search</button>
-      </form>
+    <header>
+        <h1>Best Books!</h1>
+        <h2>Search by title or author !</h2>
+    </header>
+
+    <br />
+
+    <main>
+        <form action="/searches" method="post">
+            <fieldset>
+                <input type="text" name="search" id="userInput" placeholder="Enter a title or author" required>
+
+
+                <label for="title"> Title </label>
+                <input type="radio" name="searchBy" value="title" required>
+
+
+                <label for="author"> Author  </label>
+                <input type="radio" name="searchBy" value="author" required>
+
+                <button type="submit">Search The Google Books API</button>
+            </fieldset>
+        </form>
+    </main>
+
+    <footer>
+        O O
+    </footer>
 </body>
+
 </html>

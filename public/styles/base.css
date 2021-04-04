@@ -1,4 +1,46 @@
 body {
-    background-color: bisque;
-    font-size: 500px;
+    background-color: grey;
+    display: grid;
+    grid-template-rows: 15% 40% 35% 10%;
+}
+
+header {
+    display: grid;
+    grid-template-rows: 60% 40%;
+    text-align: center;
+}
+
+header h1 {
+    background-color: black;
+    color: white;
+    height: 100%;
+}
+
+h2 {
+    height: 100%;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 80%;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 80%;
+}
+
+fieldset {
+    display: grid;
+    grid-template-rows: 25% 25% 25% 25%;
+    color: black;
+    background-color: rgb(187, 187, 187);
+    text-align: left;
+}
+
+#userInput {
+    text-align: center;
+    color: black;
+    background-color: rgb(255, 255, 255);
+    padding: 2em;
 }
