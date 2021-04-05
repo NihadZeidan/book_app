@@ -14,7 +14,24 @@
     </header>
 
     <main>
+<% SeedData.forEach(book => {%>
+    <h2>No. of Books: <%{SeedData.length}%></h2>
+    <div>
+        <img src="<%= book.image_url %>" />
 
+        <h2>
+            <%= book.title %>
+        </h2>
+
+        <h3>
+            <%= book.authors %>
+        </h3>
+
+        <p>
+            <%= book.description %>
+        </p>
+    </div>
+    <% }) %>
     </main>
 
     <footer>

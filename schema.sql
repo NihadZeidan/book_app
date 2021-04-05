@@ -6,5 +6,5 @@ author TEXT,
 title TEXT,
 isbn CHAR(256),
 image_url TEXT,
-description TEXT
+description1 TEXT
 );
