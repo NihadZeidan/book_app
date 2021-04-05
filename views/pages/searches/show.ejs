@@ -17,10 +17,12 @@
 
 
     <main>
-
+        
         <% UserBooks.forEach(book => {%>
+            <form action="/searches" method="POST">
+            <!-- <label for="book"> -->
             <div>
-
+                
                 <img src="<%= book.image_url %>" />
 
 
@@ -38,8 +40,13 @@
 
 
             </div>
+        <!-- <input type="submit" value="book" name="Add To Cart">   
+        </label> -->
+        <button type="submit">Add To Cart</button>   
+    </form>
             <% }) %>
 
+     
     </main>
 
 
