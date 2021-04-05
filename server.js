@@ -6,35 +6,33 @@ const superAgent = require('superagent');
 const cors = require('cors');
 const { response } = require('express');
 const app = express();
-// ------------------------------------------
+// ---------------------------------------------------------------------------------
 
 const PORT = process.env.PORT || 4444
 
 // MiddleWare to direct your express
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
 
 // creat path for form
 app.get('/searches/new', formHandler)
 app.post('/searches', resultHandler)
-
-
-// To set the view engine to server-side template   
-app.use(express.static('public/styles'));
-
-app.set('view engine', 'ejs');
-
 app.get('/', (request, response) => {
     response.render('pages/index');
 });
 
+
+// To set the view engine to server-side template   
+app.use(express.static('public/styles'));
+app.set('view engine', 'ejs');
 app.use("*", errorHandler)
 
-// ---------------------------------------
+// ----------------------------------------------------------------------------------
 
 function formHandler(req, res) {
     res.render('pages/searches/new')
 }
+
 
 function resultHandler(req, res) {
     let url = `https://www.googleapis.com/books/v1/volumes`
@@ -50,9 +48,9 @@ function resultHandler(req, res) {
         return result.body.items.map(
             book => {
                 let newBook = new Book(book);
-                if (newBook.image_url === '') {
-                    newBook.image_url = 'https://i.imgur.com/J5LVHEL.jpg'
-                };
+                // if (newBook.image_url == null) {
+                //     newBook.image_url = 'https://i.imgur.com/J5LVHEL.jpg'
+                // };
                 return newBook;
             }
         )
@@ -63,22 +61,23 @@ function resultHandler(req, res) {
     })
 }
 
+
 function errorHandler(req, res) {
     res.render("pages/error");
 }
 
 
-// -----------------------------------------
+// -------------------------------------------------------------------------------------------
 function Book(dataBook) {
-    this.authors = dataBook.volumeInfo.authors;
-    this.title = dataBook.volumeInfo.title;
-    this.description = dataBook.volumeInfo.description;
-    this.image_url = dataBook.volumeInfo.imageLinks.smallThumbnail;
+    this.authors = dataBook.volumeInfo.authors ? dataBook.volumeInfo.authors : 'No Author Found'
+    this.title = dataBook.volumeInfo.title ? dataBook.volumeInfo.title : "NO Title Found";
+    this.description = dataBook.volumeInfo.description ? dataBook.volumeInfo.description : "No Description Found";
+    this.image_url = dataBook.volumeInfo.imageLinks.thumbnail ? dataBook.volumeInfo.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
 }
 
 
 
-// -------------------------------------------
+// -------------------------------------------------------------------------------------
 app.listen(PORT, () => {
     console.log(`Listening to PORT ${PORT}`);
 });
