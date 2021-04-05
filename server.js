@@ -48,9 +48,7 @@ function resultHandler(req, res) {
         return result.body.items.map(
             book => {
                 let newBook = new Book(book);
-                // if (newBook.image_url == null) {
-                //     newBook.image_url = 'https://i.imgur.com/J5LVHEL.jpg'
-                // };
+
                 return newBook;
             }
         )
@@ -69,7 +67,15 @@ function errorHandler(req, res) {
 
 // -------------------------------------------------------------------------------------------
 function Book(dataBook) {
-    this.authors = dataBook.volumeInfo.authors ? dataBook.volumeInfo.authors : 'No Author Found'
+
+    const check = dataBook.volumeInfo.industryIdentifiers.map(obj => {
+        if (obj.type === 'ISBN_13') {
+            return `${obj.type} ${obj.identifier}`
+        }
+    });
+
+    this.isbn = check[0];
+    this.authors = dataBook.volumeInfo.authors ? dataBook.volumeInfo.authors : 'No Author Found';
     this.title = dataBook.volumeInfo.title ? dataBook.volumeInfo.title : "NO Title Found";
     this.description = dataBook.volumeInfo.description ? dataBook.volumeInfo.description : "No Description Found";
     this.image_url = dataBook.volumeInfo.imageLinks.thumbnail ? dataBook.volumeInfo.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
