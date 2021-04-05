@@ -5,21 +5,39 @@ const express = require('express');
 const superAgent = require('superagent');
 const cors = require('cors');
 const { response } = require('express');
+const pg = require('pg');
 const app = express();
+
 // ---------------------------------------------------------------------------------
-
+const DATABASE_URL = process.env.DATABASE_URL;
 const PORT = process.env.PORT || 4444
-
+const ENV = process.env.ENV;
 // MiddleWare to direct your express
 app.use(express.urlencoded({ extended: true }));
+
+// pg setup
+
+let client = '';
+// if (ENV === 'DEV') {
+    client = new pg.Client({
+        connectionString: DATABASE_URL,
+    })
+    
+// } else {
+//     client = new pg.Client({
+//         connectionString: DATABASE_URL,
+//         ssl: {
+//             rejectUnauthorized: false
+//         }
+
+//     })
+// };
 
 
 // creat path for form
 app.get('/searches/new', formHandler)
 app.post('/searches', resultHandler)
-app.get('/', (request, response) => {
-    response.render('pages/index');
-});
+app.get('/', renderFromDB);
 
 
 // To set the view engine to server-side template   
@@ -28,6 +46,18 @@ app.set('view engine', 'ejs');
 app.use("*", errorHandler)
 
 // ----------------------------------------------------------------------------------
+
+function renderFromDB (request, response) {
+const sqlQuery = `SELECT * FROM shelf;`;
+client.query(sqlQuery).then(
+   
+  result => {console.log(result);
+    response.render('pages/index', {SeedData: result.rows})}
+)
+}
+// .catch( error => 
+//     errorHandler(error,response)
+// )
 
 function formHandler(req, res) {
     res.render('pages/searches/new')
@@ -84,6 +114,8 @@ function Book(dataBook) {
 
 
 // -------------------------------------------------------------------------------------
-app.listen(PORT, () => {
-    console.log(`Listening to PORT ${PORT}`);
-});
+
+// connectapp to DB
+client.connect().then(() =>
+  app.listen(PORT, () => console.log(`Listening on port: ${PORT}`))
+);
