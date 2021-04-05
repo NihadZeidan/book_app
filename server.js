@@ -39,6 +39,7 @@ app.get('/searches/new', formHandler)
 app.post('/searches', resultHandler)
 app.get('/', renderFromDB);
 app.get('/books/:id', makeRequest);
+app.post('/books', formRequest);
 
 
 // To set the view engine to server-side template   
@@ -48,9 +49,21 @@ app.use("*", errorHandler)
 
 // ----------------------------------------------------------------------------------
 
+function formRequest(request, response) {
+   const {author, title, isbn, image_url, description1} = request.body;
+   const safeValues = [author, title, isbn, image_url, description1];
+    const sqlQuery = `INSERT INTO shelf(author, title, isbn, image_url, description1) 
+    VALUES($1,$2,$3,$4,$5);`;
+client.query(sqlQuery,safeValues).then(
+response.redirect('/')).catch(error => {
+    errorHandler(error,response)
+}
+)
+}
+
 
 function makeRequest(request, response) {
-    const id = request.params.id;
+    const id = request.body.id;
     const sqlQuery = 'SELECT * FROM shelf WHERE id=$1;';
     const safeValues = [id];
 
@@ -103,13 +116,13 @@ function resultHandler(req, res) {
     }).then(resultNew => {
         res.render('pages/searches/show', { UserBooks: resultNew.slice(0, 11) })
     }).catch(res => {
-        res.render("pages/error");
+        res.render('pages/error');
     })
 }
 
 
 function errorHandler(req, res) {
-    res.render("pages/error");
+    res.render('pages/error');
 }
 
 
@@ -125,7 +138,7 @@ function Book(dataBook) {
     this.isbn = check[0];
     this.authors = dataBook.volumeInfo.authors ? dataBook.volumeInfo.authors : 'No Author Found';
     this.title = dataBook.volumeInfo.title ? dataBook.volumeInfo.title : "NO Title Found";
-    this.description = dataBook.volumeInfo.description ? dataBook.volumeInfo.description : "No Description Found";
+    this.description1 = dataBook.volumeInfo.description1 ? dataBook.volumeInfo.description1 : "No Description Found";
     this.image_url = dataBook.volumeInfo.imageLinks.thumbnail ? dataBook.volumeInfo.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
 }
 
