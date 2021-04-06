@@ -17,12 +17,12 @@
 
 
     <main>
-        
+
         <% UserBooks.forEach(book => {%>
-            <form action="/searches" method="POST">
-    
+
+
             <div>
-                
+
                 <img src="<%= book.image_url %>" />
 
 
@@ -41,11 +41,21 @@
 
             </div>
 
-        <button type="submit">Add To Cart</button>   
-    </form>
+            <form action="/books" method="POST">
+
+                <input type="hidden" name="image_url" value="<%= book.image_url %>"></input>
+
+                <input type="hidden" name="title" value=" <%= book.title %>"></input>
+
+                <input type="hidden" name="authors" value=" <%= book.authors %>"></input>
+
+                <input type="hidden" name="description" value="<%= book.description %>"></input>
+
+                <input type="submit" value="save books"></input>
+            </form>
             <% }) %>
 
-     
+
     </main>
 
 

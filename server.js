@@ -12,11 +12,17 @@ const app = express();
 const DATABASE_URL = process.env.DATABASE_URL;
 const PORT = process.env.PORT || 4444
 const ENV = process.env.ENV;
+
+
+
 // MiddleWare to direct your express
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public/styles'));
+app.set('view engine', 'ejs');
+
+
 
 // pg setup
-
 let client = '';
 if (ENV === 'DEV') {
     client = new pg.Client({
@@ -29,41 +35,51 @@ if (ENV === 'DEV') {
         ssl: {
             rejectUnauthorized: false
         }
-
     })
 };
 
 
-// creat path for form
+
+
+// create Routes 
 app.get('/searches/new', formHandler)
-app.post('/searches', resultHandler)
 app.get('/', renderFromDB);
 app.get('/books/:id', makeRequest);
 app.post('/books', formRequest);
-
-
-// To set the view engine to server-side template   
-app.use(express.static('public/styles'));
-app.set('view engine', 'ejs');
+app.post('/searches', resultHandler)
 app.use("*", errorHandler)
+
+
+
 
 // ----------------------------------------------------------------------------------
 
+
+
 function formRequest(request, response) {
-   const {author, title, isbn, image_url, description1} = request.body;
-   const safeValues = [author, title, isbn, image_url, description1];
+    const value = request.body;
+
     const sqlQuery = `INSERT INTO shelf(author, title, isbn, image_url, description1) 
-    VALUES($1,$2,$3,$4,$5);`;
-client.query(sqlQuery,safeValues).then(
-response.redirect('/')).catch(error => {
-    errorHandler(error,response)
+        VALUES($1,$2,$3,$4,$5) RETURNING id;`;
+
+    const safeValues = [value.author, value.title, value.isbn, value.image_url, value.description1];
+
+    client.query(sqlQuery, safeValues).then(result => {
+        response.redirect(`/books/${result.rows[0].id}`)
+    })
 }
-)
-}
+
+
+
+
+
+
+
+
 
 
 function makeRequest(request, response) {
-    const id = request.body.id;
+    const id = request.params.id;
     const sqlQuery = 'SELECT * FROM shelf WHERE id=$1;';
     const safeValues = [id];
 
@@ -72,7 +88,7 @@ function makeRequest(request, response) {
         response.render('pages/books/show2', { oneBook: result.rows })
     }).catch(res => {
         res.render("HELLOOO");
-    })
+    });
 
 }
 
@@ -86,9 +102,7 @@ function renderFromDB(request, response) {
         }
     )
 }
-// .catch( error => 
-//     errorHandler(error,response)
-// )
+
 
 function formHandler(req, res) {
     res.render('pages/searches/new')
@@ -146,7 +160,7 @@ function Book(dataBook) {
 
 // -------------------------------------------------------------------------------------
 
-// connectapp to DB
+// connect to DB and port
 client.connect().then(() =>
     app.listen(PORT, () => console.log(`Listening on port: ${PORT}`))
 );

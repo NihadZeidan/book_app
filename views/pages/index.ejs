@@ -14,6 +14,9 @@
             <li>
                 <a href="#">HOME</a>
             </li>
+            <li>
+                <a href="/searches/new">Search</a>
+            </li>
         </nav>
         <h2> BOOK APP </h2>
 
@@ -39,8 +42,9 @@
                     <%= book.description1 %>
                 </p>
 
-                <a href="/id/<%= book.id %>"> View Details </a>
+                <a href="/books/<%= book.id %>"> View Details </a>
             </div>
+
             <% }) %>
 
 
