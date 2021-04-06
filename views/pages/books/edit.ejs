@@ -1,15 +1,18 @@
 <% oneBook.forEach(book => {%>
-    <form id="formUpdate" action="/books/<%= book.id %>?_method=PUT" method="post">
+
+    <form id="formUpdate" style="display:none;" action="/books/<%= book.id %>?_method=PUT" method="post">
         <fieldset>
             <input type="text" name="title" value=" <%= book.title %>"></input>
             <input type="text" name="author" value=" <%= book.author %>"></input>
             <input type="text" name="isbn" value="<%= book.isbn %>"></input>
             <input type="text" name="image_url" value="<%= book.image_url %>"></input>
             <br>
-            <textarea cols="30" rows="10" name="description">
+            <textarea cols="30" rows="10" name="description1">
             <%= book.description1 %>
           </textarea>
             <br>
             <input type="submit" value="update details"></input>
         </fieldset>
     </form>
+
+    <% }) %>
