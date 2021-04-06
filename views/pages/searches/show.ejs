@@ -11,18 +11,20 @@
 
 <body>
     <header>
+
         <h1>Best Books!</h1>
         <h2>Search by title or author !</h2>
+        <%- include('../../layout/header') %>
     </header>
 
 
     <main>
-        
+
         <% UserBooks.forEach(book => {%>
-            <form action="/searches" method="POST">
-    
+
+
             <div>
-                
+
                 <img src="<%= book.image_url %>" />
 
 
@@ -31,21 +33,38 @@
                 </h2>
 
                 <h3>
-                    <%= book.authors %>
+                    <%= book.author %>
                 </h3>
 
                 <p>
-                    <%= book.description %>
+                    <%= book.description1 %>
+                </p>
+
+                <p>
+                    <%= book.isbn %>
                 </p>
 
 
             </div>
 
-        <button type="submit">Add To Cart</button>   
-    </form>
+            <form action="/books" method="POST">
+
+                <input type="hidden" name="image_url" value="<%= book.image_url %>"></input>
+
+                <input type="hidden" name="title" value=" <%= book.title %>"></input>
+
+                <input type="hidden" name="author" value=" <%= book.author %>"></input>
+
+                <input type="hidden" name="description" value="<%= book.description1 %>"></input>
+
+                <input type="hidden" name="isbn" value="<%= book.isbn %>"></input>
+
+                <input type="submit" value="Save book"></input>
+            </form>
+
             <% }) %>
 
-     
+
     </main>
 
 
