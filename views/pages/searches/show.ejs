@@ -11,8 +11,10 @@
 
 <body>
     <header>
+
         <h1>Best Books!</h1>
         <h2>Search by title or author !</h2>
+        <%- include('../../layout/header') %>
     </header>
 
 
@@ -31,11 +33,15 @@
                 </h2>
 
                 <h3>
-                    <%= book.authors %>
+                    <%= book.author %>
                 </h3>
 
                 <p>
-                    <%= book.description %>
+                    <%= book.description1 %>
+                </p>
+
+                <p>
+                    <%= book.isbn %>
                 </p>
 
 
@@ -47,12 +53,15 @@
 
                 <input type="hidden" name="title" value=" <%= book.title %>"></input>
 
-                <input type="hidden" name="authors" value=" <%= book.authors %>"></input>
+                <input type="hidden" name="author" value=" <%= book.author %>"></input>
 
-                <input type="hidden" name="description" value="<%= book.description %>"></input>
+                <input type="hidden" name="description" value="<%= book.description1 %>"></input>
 
-                <input type="submit" value="save books"></input>
+                <input type="hidden" name="isbn" value="<%= book.isbn %>"></input>
+
+                <input type="submit" value="Save book"></input>
             </form>
+
             <% }) %>
 
 

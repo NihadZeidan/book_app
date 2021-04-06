@@ -11,16 +11,13 @@
 <body>
 
     <header>
-        <nav>
-            <li>
-                <a href="/">HOME</a>
-            </li>
-        </nav>
+        <%- include('../../layout/header') %>
     </header>
 
     <main>
 
         <% oneBook.forEach(book => {%>
+
             <section>
 
                 <img src="<%= book.image_url %>" />
@@ -36,6 +33,10 @@
 
                 <p>
                     <%= book.description1 %>
+                </p>
+
+                <p>
+                    <%= book.isbn %>
                 </p>
 
             </section>

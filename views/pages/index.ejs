@@ -10,17 +10,7 @@
 
 <body>
     <header>
-        <nav>
-            <li>
-                <a href="#">HOME</a>
-            </li>
-            <li>
-                <a href="/searches/new">Search</a>
-            </li>
-        </nav>
-        <h2> BOOK APP </h2>
-
-
+        <%- include('../layout/header') %>
     </header>
 
     <main>
@@ -35,11 +25,15 @@
                 </h2>
 
                 <h3>
-                    <%= book.authors %>
+                    <%= book.author %>
                 </h3>
 
                 <p>
                     <%= book.description1 %>
+                </p>
+
+                <p>
+                    <%= book.isbn %>
                 </p>
 
                 <a href="/books/<%= book.id %>"> View Details </a>
