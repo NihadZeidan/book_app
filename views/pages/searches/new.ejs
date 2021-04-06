@@ -1,39 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show Books</title>
-    <link rel="stylesheet" href="../app.css" type="text/css">
-</head>
+<%- include( '../../layout/head')%>
 
-<body>
-    <header>
-        <h1>Best Books!</h1>
-        <h2>Search by title or author !</h2>
-        <%- include('../../layout/header') %>
-    </header>
+    <body>
+        <header>
+            <h1>Best Books!</h1>
+            <h2>Search by title or author !</h2>
+            <%- include('../../layout/header') %>
+        </header>
 
-    <main>
-        <form action="/searches" method="post">
-            <fieldset>
-                <input type="text" name="search" id="userInput" placeholder="Enter a title or author" required>
-                <br>
-                <br>
-                <label for="title"> Title 
+        <main>
+            <form action="/searches" method="post">
+                <fieldset>
+                    <input type="text" name="search" id="userInput" placeholder="Enter a title or author" required>
+                    <br>
+                    <br>
+                    <label for="title"> Title 
                 <input type="radio" name="searchBy" value="title" required>
 </label>
-                <br>
-                <br> <label for="author"> Author  
+                    <br>
+                    <br> <label for="author"> Author  
                 <input type="radio" name="searchBy" value="author" required>
             </label>
-                <br>
-                <br>
-                <button type="submit">Search The Google Books API</button>
-            </fieldset>
-        </form>
-    </main>
-    <footer id="newFooter"> gggg </footer>
-</body>
+                    <br>
+                    <br>
+                    <button type="submit">Search The Google Books API</button>
+                </fieldset>
+            </form>
+        </main>
+        <footer id="newFooter"> gggg </footer>
+
+    </body>
+
 
 </html>

@@ -7,6 +7,7 @@ const cors = require('cors');
 const { response } = require('express');
 const pg = require('pg');
 const app = express();
+const methodoverride = require('method-override');
 
 // ---------------------------------------------------------------------------------
 const DATABASE_URL = process.env.DATABASE_URL;
@@ -14,15 +15,14 @@ const PORT = process.env.PORT || 4444
 const ENV = process.env.ENV;
 
 
-
 // MiddleWare to direct your express
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public/styles'));
 app.set('view engine', 'ejs');
+app.use(methodoverride('_method'));
 
 
-
-// pg setup
+// client pg setup
 let client = '';
 if (ENV === 'DEV') {
     client = new pg.Client({
@@ -48,41 +48,43 @@ app.get('/books/:id', makeRequest);
 app.post('/books', formRequest);
 app.post('/searches', resultHandler)
 app.use("*", errorHandler)
-
+app.put('/books/:id', updateBook);
 
 // ----------------------------------------------------------------------------------
 
 
 
-function formRequest(request, response) {
-    const query = request.body;
 
-    const sqlQuery = `INSERT INTO shelf(author, title, isbn, image_url, description1) 
-        VALUES($1,$2,$3,$4,$5) RETURNING id;`;
-
-    const safeValues = [query.author, query.title, query.isbn, query.image_url, query.description];
-
+function updateBook(request, response) {
+    const id = request.params.id;
+    const { author, title, isbn, image_url, description } = request.body;
+    const safeValues = [author, title, isbn, image_url, description];
+    const sqlQuery = `UPDATE tasks SET author=$1, title=$2, isbn=$3,  image_url=$4, description1=$5 WHERE id=${id};`;
     client.query(sqlQuery, safeValues).then(result => {
         response.redirect(`/books/${result.rows[0].id}`)
     })
 }
 
 
+function formRequest(request, response) {
+    const query = request.body;
+    const sqlQuery = `INSERT INTO shelf(author, title, isbn, image_url, description1) VALUES($1,$2,$3,$4,$5) RETURNING id;`;
+    const safeValues = [query.author, query.title, query.isbn, query.image_url, query.description];
+    client.query(sqlQuery, safeValues).then(result => {
+        response.redirect(`/books/${result.rows[0].id}`)
+    })
+}
 
 function makeRequest(request, response) {
     const id = request.params.id;
     const sqlQuery = 'SELECT * FROM shelf WHERE id=$1;';
     const safeValues = [id];
-
     client.query(sqlQuery, safeValues).then(result => {
-        console.log(result.rows);
-        response.render('pages/books/show2', { oneBook: result.rows })
+        response.render('pages/books/detail', { oneBook: result.rows })
     }).catch(res => {
         res.render("HELLOOO");
     });
-
 }
-
 
 
 function renderFromDB(request, response) {
@@ -147,7 +149,6 @@ function Book(dataBook) {
     this.description1 = dataBook.volumeInfo.description ? dataBook.volumeInfo.description : "No Description Found";
     this.image_url = dataBook.volumeInfo.imageLinks.thumbnail ? dataBook.volumeInfo.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
 }
-
 
 
 // -------------------------------------------------------------------------------------

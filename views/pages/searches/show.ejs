@@ -1,77 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <title>Document</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="app.css" type="text/css">
-</head>
+<%- include( '../../layout/head')%>
 
-<body>
-    <header>
+    <body>
+        <header>
 
-        <h1>Best Books!</h1>
-        <h2>Search by title or author !</h2>
-        <%- include('../../layout/header') %>
-    </header>
+            <h1>Best Books!</h1>
+            <h2>Search by title or author !</h2>
+            <%- include('../../layout/header') %>
+        </header>
 
 
-    <main>
+        <main>
 
-        <% UserBooks.forEach(book => {%>
-
-
-            <div>
-
-                <img src="<%= book.image_url %>" />
+            <% UserBooks.forEach(book => {%>
 
 
-                <h2>
-                    <%= book.title %>
-                </h2>
+                <div>
 
-                <h3>
-                    <%= book.author %>
-                </h3>
-
-                <p>
-                    <%= book.description1 %>
-                </p>
-
-                <p>
-                    <%= book.isbn %>
-                </p>
+                    <img src="<%= book.image_url %>" />
 
 
-            </div>
+                    <h2>
+                        <%= book.title %>
+                    </h2>
 
-            <form action="/books" method="POST">
+                    <h3>
+                        <%= book.author %>
+                    </h3>
 
-                <input type="hidden" name="image_url" value="<%= book.image_url %>"></input>
+                    <p>
+                        <%= book.description1 %>
+                    </p>
 
-                <input type="hidden" name="title" value=" <%= book.title %>"></input>
-
-                <input type="hidden" name="author" value=" <%= book.author %>"></input>
-
-                <input type="hidden" name="description" value="<%= book.description1 %>"></input>
-
-                <input type="hidden" name="isbn" value="<%= book.isbn %>"></input>
-
-                <input type="submit" value="Save book"></input>
-            </form>
-
-            <% }) %>
+                    <p>
+                        <%= book.isbn %>
+                    </p>
 
 
-    </main>
+                </div>
+
+                <form action="/books" method="POST">
+
+                    <input type="hidden" name="image_url" value="<%= book.image_url %>"></input>
+
+                    <input type="hidden" name="title" value=" <%= book.title %>"></input>
+
+                    <input type="hidden" name="author" value=" <%= book.author %>"></input>
+
+                    <input type="hidden" name="description" value="<%= book.description1 %>"></input>
+
+                    <input type="hidden" name="isbn" value="<%= book.isbn %>"></input>
+
+                    <input type="submit" value="Save book"></input>
+                </form>
+
+                <% }) %>
 
 
-    <footer id="showFooter">
-        gggg
-    </footer>
+        </main>
 
-</body>
+
+        <footer id="showFooter">
+            gggg
+        </footer>
+
+    </body>
 
 </html>
