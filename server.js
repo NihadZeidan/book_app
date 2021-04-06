@@ -15,6 +15,7 @@ const PORT = process.env.PORT || 4444
 const ENV = process.env.ENV;
 
 
+
 // MiddleWare to direct your express
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public/styles'));
@@ -45,34 +46,58 @@ if (ENV === 'DEV') {
 app.get('/searches/new', formHandler)
 app.get('/', renderFromDB);
 app.get('/books/:id', makeRequest);
-app.post('/books', formRequest);
+app.post('/books', saveBook);
 app.post('/searches', resultHandler)
 app.use("*", errorHandler)
 app.put('/books/:id', updateBook);
+app.delete('/books/:id', deleteForm);
 
 // ----------------------------------------------------------------------------------
+
+
+function deleteForm(request, response) {
+    const id = request.body.id;
+
+    safeValue = [id]
+
+    const deleteQuery = 'DELETE FROM shelf WHERE id=$1';
+
+    client.query(deleteQuery, safeValue).then(() => {
+        response.redirect('/');
+    })
+}
+
+
 
 
 
 
 function updateBook(request, response) {
+
     const id = request.params.id;
-    const { author, title, isbn, image_url, description } = request.body;
-    const safeValues = [author, title, isbn, image_url, description];
-    const sqlQuery = `UPDATE tasks SET author=$1, title=$2, isbn=$3,  image_url=$4, description1=$5 WHERE id=${id};`;
+
+    const { author, title, isbn, image_url, description1 } = request.body;
+
+    const safeValues = [author, title, isbn, image_url, description1, id];
+
+    const sqlQuery = `UPDATE shelf SET author=$1, title=$2, isbn=$3, image_url=$4, description1=$5 WHERE id=$6;`;
+
     client.query(sqlQuery, safeValues).then(result => {
-        response.redirect(`/books/${result.rows[0].id}`)
+        console.log(result.rows[0]);
+        response.redirect(`/books/${result.rows[0].id}`);
+    }).catch((error, res) => {
+        res.send("I AM HERE !");
     })
 }
 
 
-function formRequest(request, response) {
+function saveBook(request, response) {
     const query = request.body;
-    const sqlQuery = `INSERT INTO shelf(author, title, isbn, image_url, description1) VALUES($1,$2,$3,$4,$5) RETURNING id;`;
     const safeValues = [query.author, query.title, query.isbn, query.image_url, query.description];
+    const sqlQuery = `INSERT INTO shelf(author, title, isbn, image_url, description1) VALUES($1,$2,$3,$4,$5) RETURNING id;`;
     client.query(sqlQuery, safeValues).then(result => {
         response.redirect(`/books/${result.rows[0].id}`)
-    })
+    });
 }
 
 function makeRequest(request, response) {

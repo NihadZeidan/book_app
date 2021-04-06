@@ -29,24 +29,30 @@
                     </p>
                 </section>
                 <button id='update_details_button'>
-            update details
+            Update details
         </button>
-                <button id='delete book_button'>
-            delete book
-        </button>
-                <% }) %>
 
-                    <%- include('edit')%>
+                <form action="/books/<% book.id %>" method="POST">
+                    <input type="submit" value="DELETE THIISSS BoOoOoO0O0oK!">
+                    </input>
+                </form>
+
+                <%- include('edit')%>
+
+                    <% }) %>
 
 
 
                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
                         <script>
-                            $('#update_details_button ').on(click, function(event) {
-                                $('#formUpdate').toggle()
-                            })
+                            $('#update_details_button').on('click', function(event) {
+                                $('#formUpdate').css('display', 'block');
+                            });
                         </script>
+
+
+
         </main>
 
 
