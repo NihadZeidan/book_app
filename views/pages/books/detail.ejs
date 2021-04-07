@@ -10,7 +10,6 @@
         </header>
 
         <main>
-
             <% oneBook.forEach(book => {%>
 
                 <section>
@@ -32,8 +31,8 @@
             Update details
         </button>
 
-                <form action="/books/<%= book.id %>" method="get">
-                    <input type="submit" value="DELETE THIISSS BoOoOoO0O0oK!">
+                <form action="/books/<%= book.id%>?_method=DELETE" method="post">
+                    <input type="submit" value="delete book">
                     </input>
                 </form>
 
