@@ -46,9 +46,11 @@ if (ENV === 'DEV') {
 app.get('/searches/new', formHandler)
 app.get('/', renderFromDB);
 app.get('/books/:id', makeRequest);
+
 app.post('/books', saveBook);
 app.post('/searches', resultHandler)
 app.use("*", errorHandler)
+
 app.put('/books/:id', updateBook);
 app.delete('/books/:id', deleteForm);
 
@@ -58,9 +60,9 @@ app.delete('/books/:id', deleteForm);
 function deleteForm(request, response) {
     const id = request.body.id;
 
-    safeValue = [id]
+    safeValue = [id];
 
-    const deleteQuery = 'DELETE FROM shelf WHERE id=$1';
+    const deleteQuery = 'DELETE FROM shelf WHERE id=$1;';
 
     client.query(deleteQuery, safeValue).then(() => {
         response.redirect('/');
@@ -69,26 +71,21 @@ function deleteForm(request, response) {
 
 
 
-
-
-
 function updateBook(request, response) {
-
     const id = request.params.id;
-
-    const { author, title, isbn, image_url, description1 } = request.body;
-
-    const safeValues = [author, title, isbn, image_url, description1, id];
+    const { title, author, isbn, image_url, description1 } = request.body;
+    const safeValues = [title, author, isbn, image_url, description1, id];
 
     const sqlQuery = `UPDATE shelf SET author=$1, title=$2, isbn=$3, image_url=$4, description1=$5 WHERE id=$6;`;
 
     client.query(sqlQuery, safeValues).then(result => {
-        console.log(result.rows[0]);
-        response.redirect(`/books/${result.rows[0].id}`);
+        response.redirect(`/books/${id}`);
     }).catch((error, res) => {
         res.send("I AM HERE !");
     })
 }
+
+
 
 
 function saveBook(request, response) {
@@ -99,6 +96,8 @@ function saveBook(request, response) {
         response.redirect(`/books/${result.rows[0].id}`)
     });
 }
+
+
 
 function makeRequest(request, response) {
     const id = request.params.id;
@@ -112,6 +111,8 @@ function makeRequest(request, response) {
 }
 
 
+
+
 function renderFromDB(request, response) {
     const sqlQuery = `SELECT * FROM shelf;`;
     client.query(sqlQuery).then(
@@ -122,9 +123,13 @@ function renderFromDB(request, response) {
 }
 
 
+
+
 function formHandler(req, res) {
     res.render('pages/searches/new')
 }
+
+
 
 
 function resultHandler(req, res) {
