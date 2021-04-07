@@ -119,18 +119,17 @@ function resultHandler(req, res) {
     let searchQuery = {};
 
     if (searchBy === 'title') {
-        searchQuery['q'] = `+intitle:${search}`
+        searchQuery['q'] = `+inTitle:${search}`
     } else if (searchBy === 'author') {
-        searchQuery['q'] = `+inauthor:${search}`
+        searchQuery['q'] = `+inAuthor:${search}`
     }
 
     superAgent.get(url).query(searchQuery).then((result) => {
         if (result.body.items.length !== 0) {
-            return result.body.items.map(
-                book => {
-                    let newBook = new Book(book);
-                    return newBook;
-                })
+            return result.body.items.map(book => {
+                let newBook = new Book(book);
+                return newBook;
+            })
         }
     }).then(resultNew => {
 
@@ -138,7 +137,8 @@ function resultHandler(req, res) {
 
 
     }).catch(error => {
-        errorHandler(error, res)
+        console.log(error);
+        errorHandler(req, res)
     });
 }
 
