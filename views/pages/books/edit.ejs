@@ -2,16 +2,25 @@
 
     <form id="formUpdate" style="display:none;" action="/books/<%= book.id %>?_method=put" method="post">
         <fieldset>
+            <label for="title"> Enter Title</label>
             <input type="text" name="title" value="<%= book.title %>"></input>
+
+            <label for="author"> Enter Author        </label>
             <input type="text" name="author" value="<%= book.author %>"></input>
+
+            <label for="isbn"> Enter Author   </label>
             <input type="text" name="isbn" value="<%= book.isbn %>"></input>
+
+            <label for="image_url"> Enter Image URL  </label>
             <input type="text" name="image_url" value="<%= book.image_url %>"></input>
-            <br>
-            <textarea cols="10" rows="10" name="description1">
+
+            <label for="description1"> Enter Description        </label>
+            <textarea cols="8" rows="8" name="description1">
             <%= book.description1 %>
           </textarea>
-            <br>
-            <input type="submit" value="update details"></input>
+
+
+            <input id="updatebutton2" type="submit" value="Update"></input>
         </fieldset>
     </form>
 
