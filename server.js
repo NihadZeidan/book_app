@@ -48,9 +48,9 @@ app.delete('/books/:id', deleteForm);
 
 // Handlers  
 function deleteForm(request, response) {
-    const id = request.body.id;
+    const value = request.params.id;
 
-    const safeValue = [id];
+    const safeValue = [value];
 
     const deleteQuery = 'DELETE FROM shelf WHERE id=$1;';
 
