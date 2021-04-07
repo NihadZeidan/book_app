@@ -42,7 +42,7 @@
 
                 </div>
 
-                <form action="/books" method="POST">
+                <form id="saveBookForm" action="/books" method="POST">
 
                     <input type="hidden" name="image_url" value="<%= book.image_url %>"></input>
 
@@ -54,7 +54,7 @@
 
                     <input type="hidden" name="isbn" value="<%= book.isbn %>"></input>
 
-                    <input type="submit" value="Save book"></input>
+                    <input id="saveBook" type="submit" value="Save book"></input>
                 </form>
 
                 <% }) %>
@@ -65,7 +65,7 @@
 
 
         <footer id="showFooter">
-            gggg
+
         </footer>
 
     </body>

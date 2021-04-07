@@ -12,7 +12,7 @@
         <main>
             <% oneBook.forEach(book => {%>
 
-                <section>
+                <div>
                     <img src="<%= book.image_url %>" />
                     <h2>
                         <%= book.title %>
@@ -26,13 +26,13 @@
                     <p>
                         <%= book.isbn %>
                     </p>
-                </section>
+                </div>
                 <button id='update_details_button'>
-            Update details
+            Update Details
         </button>
 
                 <form action="/books/<%= book.id %>?_method=delete" method="post">
-                    <input type="submit" value="delete book">
+                    <input id="delete_button" type="submit" value="Delete Book">
                     </input>
                 </form>
 

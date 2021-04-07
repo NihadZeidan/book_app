@@ -1,144 +1,208 @@
-/* Home Page CSS */
-
-header {
-    background-color: rgba(98, 92, 92, 0.714);
-    text-align: center;
-    padding: 2%;
-    border: rgba(98, 92, 92, 0.714);
-    box-shadow: rgb(54, 53, 53) 10px 10px 10px;
-}
-
-header nav {
-    display: flex;
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: rgb(27, 27, 26);
-    border-color: rgb(27, 27, 26);
-    box-shadow: rgb(68, 65, 65) 5px 5px 5px;
-    padding: .5%;
-}
-
-header h2 {
-    font-size: 3em;
-    color: white;
-}
-
-header h3 {
-    font-size: 2em;
-    color: white;
-}
-
-header nav li {
-    list-style: none;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-header nav li a {
-    font-size: 2em;
-    text-align: center;
-    color: rgb(248, 238, 238);
-    text-decoration: none;
-}
-
-div {
-    border: rgba(213, 213, 213, 0.612);
-    border-radius: 5%;
-    box-shadow: rgb(32, 31, 31) 20px 20px 20px;
-    background-color: rgba(213, 213, 213, 0.612);
-    width: 60%;
-    margin-top: 8%;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    padding: 3%;
-}
-
-div a {
-    text-decoration: none;
-    background-color: black;
-    color: white;
-    padding: 2%;
-    border-radius: 15%;
-}
-
-div h2 {
-    color: black;
-    font-size: 2em;
-    padding: 4%;
-}
-
-div h3 {
-    color: black;
-    font-size: 1.5em;
-}
-
-div p:nth-of-type(1) {
-    color: black;
-    font-size: 2em;
-    overflow: visible;
-}
-
-div p:nth-of-type(2) {
-    color: black;
-    font-size: 1em;
-    margin-bottom: 5%;
-}
-
-footer {
-    padding: 2%;
-    display: flex;
-    margin-top: 10%;
-    background-color: rgba(98, 92, 92, 0.714);
-    border: rgba(98, 92, 92, 0.714);
-}
-
-footer img {
-    width: 4%;
-    height: 4%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-
-/* ----------------------------------------------------------------------------------- */
-
-
-/* Search page CSS */
-
-main form {
-    margin-top: 2%;
-    text-align: center;
-    width: 70%;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: rgb(32, 31, 31) 20px 20px 20px;
-    background-color: rgba(213, 213, 213, 0.612);
-    border: rgba(213, 213, 213, 0.612);
-    border-radius: 2%;
-}
-
-main form label {
-    font-size: 2em;
-    display: block;
-    margin-top: 2%;
-    margin-bottom: 2%;
-}
-
-main form fieldset {
-    border: none;
-}
-
-main form input {
-    padding: 2%;
-    width: 70%;
-    border: black solid;
-}
-
-main form button {
-    padding: 2%;
-    width: 50%;
-    background-color: rgb(121, 168, 182);
-    margin-bottom: 8%;
-}
+        /* Home Page CSS */
+        
+        header {
+            background-color: rgba(98, 92, 92, 0.714);
+            text-align: center;
+            padding: 2%;
+            border: rgba(98, 92, 92, 0.714);
+            box-shadow: rgb(54, 53, 53) 10px 10px 10px;
+        }
+        
+        header nav {
+            display: flex;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: rgb(27, 27, 26);
+            border-color: rgb(27, 27, 26);
+            box-shadow: rgb(68, 65, 65) 5px 5px 5px;
+            padding: .5%;
+        }
+        
+        header h2 {
+            font-size: 3em;
+            color: white;
+        }
+        
+        header h3 {
+            font-size: 2em;
+            color: white;
+        }
+        
+        header nav li {
+            list-style: none;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        header nav li a {
+            font-size: 2em;
+            text-align: center;
+            color: rgb(248, 238, 238);
+            text-decoration: none;
+        }
+        
+        div {
+            border: rgba(213, 213, 213, 0.612);
+            border-radius: 5%;
+            box-shadow: rgb(32, 31, 31) 20px 20px 20px;
+            background-color: rgba(213, 213, 213, 0.612);
+            width: 60%;
+            margin-top: 8%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            padding: 3%;
+        }
+        
+        div a {
+            text-decoration: none;
+            background-color: black;
+            color: white;
+            padding: 2%;
+            border-radius: 15%;
+        }
+        
+        div h2 {
+            color: black;
+            font-size: 2em;
+            padding: 4%;
+        }
+        
+        div h3 {
+            color: black;
+            font-size: 1.5em;
+        }
+        
+        div p:nth-of-type(1) {
+            color: black;
+            font-size: 1.3em;
+            overflow: visible;
+        }
+        
+        div p:nth-of-type(2) {
+            color: black;
+            font-size: .9em;
+            margin-bottom: 5%;
+        }
+        
+        footer {
+            padding: 2%;
+            display: flex;
+            margin-top: 10%;
+            background-color: rgba(98, 92, 92, 0.714);
+            border: rgba(98, 92, 92, 0.714);
+        }
+        
+        footer img {
+            width: 4%;
+            height: 4%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* ----------------------------------------------------------------------------------- */
+        /* Search page CSS */
+        
+        #searchForm {
+            margin-top: 2%;
+            text-align: center;
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: rgb(32, 31, 31) 20px 20px 20px;
+            background-color: rgba(213, 213, 213, 0.612);
+            border: rgba(213, 213, 213, 0.612);
+            border-radius: 2%;
+        }
+        
+        #searchForm label {
+            font-size: 2em;
+            display: block;
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
+        
+        #searchForm fieldset {
+            border: none;
+        }
+        
+        #searchForm input {
+            padding: 2%;
+            border: black solid;
+        }
+        
+        #searchForm #userInput {
+            width: 70%;
+        }
+        
+        #searchForm button {
+            padding: 2%;
+            width: 50%;
+            background-color: black;
+            margin-bottom: 8%;
+            color: white;
+        }
+        
+        #saveBookForm #saveBook {
+            display: block;
+            width: 40%;
+            padding: 2.5%;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: black;
+            margin-bottom: 8%;
+            color: white;
+            margin-top: 2%;
+            font-size: 1.3em;
+        }
+        /* ----------------------------------------------------------------------------------- */
+        
+        #formUpdate {
+            background-color: grey;
+            display: flex;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        
+        #formUpdate fieldset {
+            border: hidden;
+        }
+        
+        #update_details_button,
+        #delete_button,
+        #formUpdate fieldset #updatebutton2 {
+            display: block;
+            width: 15%;
+            padding: .5%;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: black;
+            margin-bottom: 1%;
+            color: white;
+            margin-top: 1%;
+            font-size: 1.4em;
+            text-align: center;
+        }
+        
+        #formUpdate fieldset input,
+        #formUpdate fieldset textarea {
+            display: block;
+            background-color: white;
+            color: black;
+            width: 80%;
+            padding: 1%;
+            margin: .2% auto .2% auto;
+            border: black;
+            border-style: solid;
+            font-size: 1em;
+            text-align: left;
+        }
+        
+        #formUpdate fieldset label {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 1%;
+        }
