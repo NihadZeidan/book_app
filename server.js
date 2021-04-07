@@ -1,5 +1,6 @@
 'use strict';
 
+// Dependencies
 require('dotenv').config();
 const express = require('express');
 const superAgent = require('superagent');
@@ -9,12 +10,10 @@ const pg = require('pg');
 const app = express();
 const methodoverride = require('method-override');
 
-// ---------------------------------------------------------------------------------
+// Environmental Variables
 const DATABASE_URL = process.env.DATABASE_URL;
 const PORT = process.env.PORT || 4444
 const ENV = process.env.ENV;
-
-
 
 // MiddleWare to direct your express
 app.use(express.urlencoded({ extended: true }));
@@ -22,8 +21,7 @@ app.use(express.static('public/styles'));
 app.set('view engine', 'ejs');
 app.use(methodoverride('_method'));
 
-
-// client pg setup
+// DB Setup
 let client = '';
 if (ENV === 'DEV') {
     client = new pg.Client({
@@ -39,28 +37,20 @@ if (ENV === 'DEV') {
     })
 };
 
-
-
-
-// create Routes 
+// Routes 
 app.get('/searches/new', formHandler)
 app.get('/', renderFromDB);
 app.get('/books/:id', makeRequest);
-
 app.post('/books', saveBook);
 app.post('/searches', resultHandler)
-app.use("*", errorHandler)
-
 app.put('/books/:id', updateBook);
 app.delete('/books/:id', deleteForm);
 
-// ----------------------------------------------------------------------------------
-
-
+// Handlers  
 function deleteForm(request, response) {
     const id = request.body.id;
 
-    safeValue = [id];
+    const safeValue = [id];
 
     const deleteQuery = 'DELETE FROM shelf WHERE id=$1;';
 
@@ -68,7 +58,6 @@ function deleteForm(request, response) {
         response.redirect('/');
     })
 }
-
 
 
 function updateBook(request, response) {
@@ -81,11 +70,9 @@ function updateBook(request, response) {
     client.query(sqlQuery, safeValues).then(result => {
         response.redirect(`/books/${id}`);
     }).catch((error, res) => {
-        res.send("I AM HERE !");
+        errorHandler(error, res);
     })
 }
-
-
 
 
 function saveBook(request, response) {
@@ -98,19 +85,16 @@ function saveBook(request, response) {
 }
 
 
-
 function makeRequest(request, response) {
     const id = request.params.id;
     const sqlQuery = 'SELECT * FROM shelf WHERE id=$1;';
     const safeValues = [id];
     client.query(sqlQuery, safeValues).then(result => {
         response.render('pages/books/detail', { oneBook: result.rows })
-    }).catch(res => {
-        res.render("HELLOOO");
+    }).catch(error => {
+        errorHandler(error, req)
     });
 }
-
-
 
 
 function renderFromDB(request, response) {
@@ -123,13 +107,10 @@ function renderFromDB(request, response) {
 }
 
 
-
-
 function formHandler(req, res) {
     res.render('pages/searches/new')
+
 }
-
-
 
 
 function resultHandler(req, res) {
@@ -144,27 +125,24 @@ function resultHandler(req, res) {
     }
 
     superAgent.get(url).query(searchQuery).then((result) => {
-        return result.body.items.map(
-            book => {
-                let newBook = new Book(book);
-                return newBook;
-            }
-        )
+        if (result.body.items.length !== 0) {
+            return result.body.items.map(
+                book => {
+                    let newBook = new Book(book);
+                    return newBook;
+                })
+        }
     }).then(resultNew => {
+
         res.render('pages/searches/show', { UserBooks: resultNew.slice(0, 11) })
-    }).catch(res => {
-        res.render('pages/error');
+
+
+    }).catch(error => {
+        errorHandler(error, res)
     });
 }
 
-
-
-function errorHandler(req, res) {
-    res.render('pages/error');
-};
-
-
-// -------------------------------------------------------------------------------------------
+// Constructor
 function Book(dataBook) {
 
     const check = dataBook.volumeInfo.industryIdentifiers.map(obj => {
@@ -180,10 +158,14 @@ function Book(dataBook) {
     this.image_url = dataBook.volumeInfo.imageLinks.thumbnail ? dataBook.volumeInfo.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
 }
 
-
-// -------------------------------------------------------------------------------------
-
 // connect to DB and port
 client.connect().then(() =>
     app.listen(PORT, () => console.log(`Listening on port: ${PORT}`))
 );
+
+// Error Handler + Path
+
+function errorHandler(req, res) {
+    res.render('pages/error');
+};
+app.use("*", errorHandler)
